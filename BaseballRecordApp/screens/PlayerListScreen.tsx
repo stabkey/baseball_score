@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { TeamContext } from '../context/TeamContext';
+import { Button, Card, Stack, Text, YStack, XStack, Theme } from 'tamagui';
 
 type PlayerListScreenProps = {
   navigation: any;
@@ -15,52 +15,36 @@ export default function PlayerListScreen({ navigation }: PlayerListScreenProps) 
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>選手一覧</Text>
-      {players.length === 0 ? (
-        <Text>登録された選手はありません。</Text>
-      ) : (
-        <FlatList
-          data={players}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.playerItem}>
-              <Text style={styles.playerName}>{item.name}</Text>
-              <Text style={styles.teamName}>{getTeamName(item.teamId)}</Text>
-              <Text style={styles.birthdate}>{item.birthdate || '生年月日未登録'}</Text>
-            </View>
-          )}
-        />
-      )}
-    </View>
+    <Theme name="light">
+      <YStack flex={1} alignItems="center" padding={16} backgroundColor="$background">
+        <Text fontSize={28} fontWeight="bold" marginBottom={16}>
+          選手一覧
+        </Text>
+        <Button marginBottom={16} onPress={() => navigation.goBack()}>
+          戻る
+        </Button>
+        {players.length === 0 ? (
+          <Text color="$color8" marginTop={24}>
+            登録された選手はありません。
+          </Text>
+        ) : (
+          <YStack space={12} width={320}>
+            {players.map((item: any) => (
+              <Card key={item.id} elevate size="$4" padding={16} alignItems="center">
+                <Text fontSize={20} fontWeight="bold" marginBottom={4}>
+                  {item.name}
+                </Text>
+                <Text fontSize={16} color="$color8" marginBottom={2}>
+                  {getTeamName(item.teamId)}
+                </Text>
+                <Text fontSize={14} color="$color8">
+                  {item.birthdate || '生年月日未登録'}
+                </Text>
+              </Card>
+            ))}
+          </YStack>
+        )}
+      </YStack>
+    </Theme>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  playerItem: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  playerName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  teamName: {
-    fontSize: 16,
-    color: '#555',
-  },
-  birthdate: {
-    fontSize: 14,
-    color: '#777',
-  },
-});

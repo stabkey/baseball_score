@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Button, Modal, TextInput, Alert } from 'react-native';
 import { TeamContext } from '../context/TeamContext';
+import { Button, Card, Stack, Text, Input, YStack, XStack, Theme, Sheet } from 'tamagui';
 
 type TeamListScreenProps = {
   navigation: any;
@@ -13,7 +13,7 @@ export default function TeamListScreen({ navigation }: TeamListScreenProps) {
 
   const handleAddTeam = () => {
     if (newTeamName.trim() === '') {
-      Alert.alert('エラー', 'チーム名を入力してください');
+      alert('チーム名を入力してください');
       return;
     }
     addTeam(newTeamName);
@@ -22,92 +22,52 @@ export default function TeamListScreen({ navigation }: TeamListScreenProps) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>チーム一覧</Text>
-      <Button title="チーム作成" onPress={() => setModalVisible(true)} />
-      {teams.length === 0 ? (
-        <Text>登録されたチームはありません。</Text>
-      ) : (
-        <FlatList
-          data={teams}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View style={styles.teamItem}>
-              <Text style={styles.teamName}>{item.name}</Text>
-            </View>
-          )}
-        />
-      )}
+    <Theme name="light">
+      <YStack flex={1} alignItems="center" padding={16} backgroundColor="$background">
+        <Text fontSize={28} fontWeight="bold" marginBottom={16}>
+          チーム一覧
+        </Text>
+        <XStack space={12} marginBottom={16}>
+          <Button onPress={() => navigation.goBack()}>戻る</Button>
+          <Button onPress={() => setModalVisible(true)}>チーム作成</Button>
+        </XStack>
+        {teams.length === 0 ? (
+          <Text color="$color8" marginTop={24}>
+            登録されたチームはありません。
+          </Text>
+        ) : (
+          <YStack space={12} width={320}>
+            {teams.map((item: any) => (
+              <Card key={item.id} elevate size="$4" padding={16} alignItems="center">
+                <Text fontSize={20} fontWeight="bold">
+                  {item.name}
+                </Text>
+              </Card>
+            ))}
+          </YStack>
+        )}
 
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>チーム作成</Text>
-            <TextInput
-              style={styles.input}
+        <Sheet open={modalVisible} onOpenChange={setModalVisible} snapPoints={[50]} modal dismissOnSnapToBottom>
+          <Sheet.Overlay />
+          <Sheet.Handle />
+          <Sheet.Frame padding={16} alignItems="center" backgroundColor="$background">
+            <Text fontSize={20} fontWeight="bold" marginBottom={12}>
+              チーム作成
+            </Text>
+            <Input
               value={newTeamName}
               onChangeText={setNewTeamName}
               placeholder="チーム名を入力"
+              width={240}
+              marginBottom={16}
             />
-            <View style={styles.buttonRow}>
-              <Button title="作成" onPress={handleAddTeam} />
-              <Button title="キャンセル" onPress={() => setModalVisible(false)} color="#888" />
-            </View>
-          </View>
-        </View>
-      </Modal>
-    </View>
+            <XStack space={12}>
+              <Button onPress={handleAddTeam}>作成</Button>
+              <Button onPress={() => setModalVisible(false)} theme="active">キャンセル</Button>
+            </XStack>
+          </Sheet.Frame>
+        </Sheet>
+      </YStack>
+    </Theme>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  teamItem: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  teamName: {
-    fontSize: 18,
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 20,
-  },
-  modalTitle: {
-    fontSize: 20,
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    padding: 8,
-    marginBottom: 20,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-});
