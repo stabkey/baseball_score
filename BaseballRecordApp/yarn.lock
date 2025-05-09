@@ -1456,16 +1456,16 @@
     prompts "^2.4.2"
     semver "^7.5.2"
 
-"@react-native-community/datetimepicker@^8.3.0":
+"@react-native-community/datetimepicker@8.3.0":
   version "8.3.0"
-  resolved "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-8.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-8.3.0.tgz#d734a77ae5fdf9585ea2eba0d2b5cf47404c0a09"
   integrity sha512-K/KgaJbLtjMpx4PaG4efrVIcSe6+DbLufeX1lwPB5YY8i3sq9dOh6WcAcMTLbaRTUpurebQTkl7puHPFm9GalA==
   dependencies:
     invariant "^2.2.4"
 
-"@react-native-picker/picker@^2.11.0":
+"@react-native-picker/picker@2.11.0":
   version "2.11.0"
-  resolved "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.11.0.tgz"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.11.0.tgz#4587fbce6a382adedad74311e96ee10bb2b2d63a"
   integrity sha512-QuZU6gbxmOID5zZgd/H90NgBnbJ3VV6qVzp6c7/dDrmWdX8S0X5YFYgDcQFjE3dRen9wB9FWnj2VVdPU64adSg==
 
 "@react-native/assets-registry@0.79.2":
@@ -3810,9 +3810,9 @@ expo-modules-core@2.3.13:
   dependencies:
     invariant "^2.2.4"
 
-expo-sqlite@^15.2.10:
+expo-sqlite@~15.2.9:
   version "15.2.10"
-  resolved "https://registry.npmjs.org/expo-sqlite/-/expo-sqlite-15.2.10.tgz"
+  resolved "https://registry.yarnpkg.com/expo-sqlite/-/expo-sqlite-15.2.10.tgz#fa1a5d7cd29ab011cf6807f7cc9f9d1310ab4cbc"
   integrity sha512-F7IYvXSOh3vIqhRkmaUvIP595Oqh8888CV5wpys94/437LkMYAOzMnqoscr+TCCmcO9XWURsMbBGsCVPHanlYQ==
   dependencies:
     await-lock "^2.2.2"
